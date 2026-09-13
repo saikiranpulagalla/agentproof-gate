@@ -344,7 +344,7 @@ cp .env.arena.example .env.arena
 npm install
 git add package-lock.json arena-audit.js sharednet-arena.js SERVICE_LISTING.md
 git commit -m "integrate SharedOS Arena service"
-git push -u origin <your-arena-branch>
+git push -u origin main
 npm run arena:check
 npm run arena:start
 ```
