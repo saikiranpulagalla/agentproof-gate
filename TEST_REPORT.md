@@ -1,4 +1,4 @@
-# AgentProof Gate â€” Hardened Verification Report
+# AgentProof Gate - Hardened Verification Report
 
 ## Current local status
 
@@ -6,10 +6,10 @@ This report describes the **RC5+ SharedOS-integrated release-hardening candidate
 
 Latest local release gate after the status-aware proof and Arena-plumbing hardening:
 
-- **122 tests discovered**
-- **117 passed**
+- **123 tests discovered**
+- **123 passed**
 - **0 failed**
-- **5 skipped** â€” only the real `@aicoo/sharedos` integration/security tests; the package cannot be installed in this container because registry access is blocked
+- **0 skipped**
 
 `npm run check` is green. Latest deterministic/core benchmark (500 runs):
 
@@ -126,7 +126,7 @@ The organizer adapter must authenticate/resolve the real transport caller and in
 
 ## Negative preflight evidence
 
-The untouched Arena template was deliberately tested and correctly failed on the current genuine external blockers: placeholder/missing LLM values, local namespace/owner, fail-closed audit and SharedNet templates, missing SharedOS package, missing lockfile, dirty/unpublished Git state, missing public repository/upstream, and the unresolved SharedNet call syntax in `SERVICE_LISTING.md`.
+The original Arena template was deliberately tested and correctly failed on the then-current blockers. SharedOS installation, package-lock.json, Git publication, and upstream synchronization are now resolved. Remaining external blockers are organizer namespace/owner/node ID, real LLM configuration, the fail-closed audit and SharedNet adapter templates, and the unresolved SharedNet call syntax in SERVICE_LISTING.md.
 
 ## External gates still open
 
@@ -140,4 +140,4 @@ These cannot be truthfully completed inside this container:
 6. inspect the organizer Cloud audit and confirm Critic + Arbiter turns under the expected purpose/trace;
 7. exercise a **real host-observed SharedOS authority denial -> trusted gap -> escalation** path.
 
-Until those gates pass, the correct status is **core/release candidate hardened; Arena integration pending**, not â€œArena ready.â€
+Until those gates pass, the correct status is **core/release candidate hardened; Arena integration pending**, not "Arena ready."
