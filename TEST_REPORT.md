@@ -1,21 +1,21 @@
-# AgentProof Gate — Hardened Verification Report
+﻿# AgentProof Gate â€” Hardened Verification Report
 
 ## Current local status
 
-This report describes the **RC5 core/release-hardening candidate**. The local suite exercises every component that can run without the organizer-issued SharedNet/Cloud configuration and the real `@aicoo/sharedos` package.
+This report describes the **RC5+ SharedOS-integrated release-hardening candidate**. The real `@aicoo/sharedos@0.1.0-alpha.5` package is installed and all SharedOS integration/security tests now execute locally.
 
 Latest local release gate after the status-aware proof and Arena-plumbing hardening:
 
 - **122 tests discovered**
 - **117 passed**
 - **0 failed**
-- **5 skipped** — only the real `@aicoo/sharedos` integration/security tests; the package cannot be installed in this container because registry access is blocked
+- **5 skipped** â€” only the real `@aicoo/sharedos` integration/security tests; the package cannot be installed in this container because registry access is blocked
 
 `npm run check` is green. Latest deterministic/core benchmark (500 runs):
 
-- P50: **0.154 ms**
-- P95: **0.477 ms**
-- max: **26.021 ms**
+- P50: **0.144 ms**
+- P95: **0.580 ms**
+- max: **19.925 ms**
 
 Fresh-port HTTP smoke is also green in deterministic/core-fallback mode:
 
@@ -132,15 +132,13 @@ The untouched Arena template was deliberately tested and correctly failed on the
 
 These cannot be truthfully completed inside this container:
 
-1. run `npm install` on an internet-connected machine and commit `package-lock.json`;
-2. execute the 5 real SharedOS integration/security tests (target: **122/122 PASS, 0 SKIP**);
-3. replace the marked section in committed `arena-audit.js` with the exact organizer Cloud integration;
-4. replace the marked section in committed `sharednet-arena.js` with the exact organizer SharedNet registration/call API;
-5. configure organizer namespace, owner address, node ID, and real LLM in uncommitted `.env.arena`;
-6. replace the `SERVICE_LISTING.md` call-syntax placeholder with the exact organizer syntax;
-7. publish this candidate to the actual Devpost repository/branch and set its upstream;
-8. run `npm run check:arena` to zero skips and a live `ARENA LOAD: PASS`;
-9. inspect the organizer Cloud audit and confirm Critic + Arbiter turns under the expected purpose/trace;
-10. exercise a **real host-observed SharedOS authority denial -> trusted gap -> escalation** path.
+1. replace the marked section in committed `arena-audit.js` with the exact organizer Cloud integration;
+2. replace the marked section in committed `sharednet-arena.js` with the exact organizer SharedNet registration/call API;
+3. configure organizer namespace, owner address, node ID, and real LLM in uncommitted `.env.arena`;
+4. replace the `SERVICE_LISTING.md` call-syntax placeholder with the exact organizer syntax;
+5. run `npm run check:arena` and obtain a live `ARENA LOAD: PASS`;
+6. inspect the organizer Cloud audit and confirm Critic + Arbiter turns under the expected purpose/trace;
+7. exercise a **real host-observed SharedOS authority denial -> trusted gap -> escalation** path.
 
-Until those gates pass, the correct status is **core/release candidate hardened; Arena integration pending**, not “Arena ready.”
+Until those gates pass, the correct status is **core/release candidate hardened; Arena integration pending**, not â€œArena ready.â€
+

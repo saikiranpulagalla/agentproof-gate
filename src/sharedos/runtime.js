@@ -43,6 +43,48 @@ class JobStore {
   }
 }
 
+
+function toSharedOSJsonValue(value, path = "$") {
+  if (value === null) return null;
+
+  const type = typeof value;
+
+  if (type === "string" || type === "boolean") return value;
+
+  if (type === "number") {
+    if (!Number.isFinite(value)) {
+      throw new TypeError(`${path} must contain only finite JSON numbers`);
+    }
+    return value;
+  }
+
+  if (Array.isArray(value)) {
+    return value.map((item, index) => {
+      if (item === undefined) {
+        throw new TypeError(`${path}[${index}] cannot be undefined in SharedOS JSON`);
+      }
+      return toSharedOSJsonValue(item, `${path}[${index}]`);
+    });
+  }
+
+  if (type === "object") {
+    const proto = Object.getPrototypeOf(value);
+    if (proto !== Object.prototype && proto !== null) {
+      throw new TypeError(`${path} must contain only plain JSON objects`);
+    }
+
+    const out = {};
+    for (const [key, item] of Object.entries(value)) {
+      // JSON objects omit undefined-valued optional properties.
+      if (item === undefined) continue;
+      out[key] = toSharedOSJsonValue(item, `${path}.${key}`);
+    }
+    return out;
+  }
+
+  throw new TypeError(`${path} contains unsupported JSON type ${type}`);
+}
+
 function makeTools(store) {
   const makeDefinition = (name, description, action, readWrite, inputSchema) => ({
     name,
@@ -64,7 +106,7 @@ function makeTools(store) {
     callId: call.id,
     tool: call.tool,
     status: "succeeded",
-    output,
+    output: toSharedOSJsonValue(output, `tool result ${call.tool}`),
     completedAt: new Date().toISOString(),
   });
 
@@ -153,7 +195,7 @@ function call(tool, args, traceId) {
   return {
     id: randomId("call"),
     tool,
-    arguments: args,
+    arguments: toSharedOSJsonValue(args, `tool arguments ${tool}`),
     traceId,
     requestedAt: new Date().toISOString(),
   };
