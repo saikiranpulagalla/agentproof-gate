@@ -1,4 +1,4 @@
-﻿# AgentProof Gate â€” Hardened Verification Report
+# AgentProof Gate â€” Hardened Verification Report
 
 ## Current local status
 
@@ -141,4 +141,3 @@ These cannot be truthfully completed inside this container:
 7. exercise a **real host-observed SharedOS authority denial -> trusted gap -> escalation** path.
 
 Until those gates pass, the correct status is **core/release candidate hardened; Arena integration pending**, not â€œArena ready.â€
-
