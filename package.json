@@ -1,0 +1,29 @@
+{
+  "name": "agentproof-gate",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Contract-aware pre-commit verification service for autonomous agents, governed by SharedOS.",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test tests/*.test.js",
+    "test:core": "node --test tests/core.test.js tests/adversarial.test.js tests/metamorphic.test.js tests/reliability.test.js",
+    "test:sharedos": "node --test tests/sharedos.integration.test.js",
+    "bench": "node scripts/bench.js",
+    "check": "npm test && npm run bench",
+    "smoke": "node scripts/smoke.js",
+    "preflight:arena": "node --env-file=.env.arena scripts/arena-preflight.js",
+    "check:arena": "node --env-file=.env.arena scripts/arena-check.js",
+    "load:arena": "node --env-file=.env.arena scripts/arena-load.js",
+    "arena:preflight": "node --env-file=.env.arena scripts/arena-preflight.js",
+    "arena:check": "node --env-file=.env.arena scripts/arena-check.js",
+    "arena:start": "node --env-file=.env.arena scripts/arena-start.js",
+    "arena:load": "node --env-file=.env.arena scripts/arena-load.js"
+  },
+  "dependencies": {
+    "@aicoo/sharedos": "0.1.0-alpha.5"
+  }
+}
